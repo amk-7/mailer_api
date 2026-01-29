@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+import 'dotenv/config'
 
 interface Mail {
     subject: string,
@@ -22,6 +23,9 @@ export default async function sendMail({subject, message, mail_to}: Mail): Promi
             pass: process.env.SMTP_PASS,
           },
         });
+
+        console.log(process.env.SMTP_USER);
+        
     
         await transporter.sendMail({
           from: `"Yield" <${process.env.SMTP_USER}>`,
@@ -36,3 +40,9 @@ export default async function sendMail({subject, message, mail_to}: Mail): Promi
         return { success: false };
       }
 }
+
+sendMail({
+    "subject": "Test",
+    "message": "message de test",
+    "mail_to": "abdoulmalikkondi8@gmail.com"
+})
